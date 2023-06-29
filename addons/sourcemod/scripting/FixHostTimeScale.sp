@@ -5,6 +5,8 @@
 
 #pragma newdecls required
 
+ConVar g_ConVar_HostTimeScale;
+
 public Plugin myinfo =
 {
 	name = "Fix host_timescale",
@@ -13,8 +15,6 @@ public Plugin myinfo =
 	version = "1.0",
 	url = ""
 };
-
-ConVar g_ConVar_HostTimeScale;
 
 public void OnPluginStart()
 {
@@ -29,10 +29,10 @@ public void OnMapEnd()
 
 public void OnConVarChanged(ConVar convar, const char[] oldValue, const char[] newValue)
 {
-	if(convar.IntValue < 1)
+	if (convar.IntValue < 1)
 	{
 		convar.IntValue = 1;
-		for(int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++)
 			PrintToChatAll("Setting host_timescale to values less than 1 will crash the server!!!");
 	}
 }
