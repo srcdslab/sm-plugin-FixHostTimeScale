@@ -6,40 +6,34 @@ This repository contains a SourcePawn plugin for SourceMod that fixes the `host_
 
 **Key Files:**
 - `addons/sourcemod/scripting/FixHostTimeScale.sp` - Main plugin source code
-- `sourceknight.yaml` - Build configuration for SourceKnight build system
-- `.github/workflows/ci.yml` - CI/CD pipeline for automated building and releases
+- `.github/workflows/ci.yml` - CI/CD pipeline for automated building and releases (native GitHub Actions, no external build tool)
 
 ## Technical Environment
 
 - **Language**: SourcePawn (.sp files)
-- **Platform**: SourceMod 1.11.0+ (currently using 1.11.0-git6934)
-- **Build System**: SourceKnight 0.2 (Python-based SourcePawn build tool)
-- **Compiler**: SourcePawn compiler (spcomp) - automatically managed by SourceKnight
+- **Platform**: SourceMod 1.12.x
+- **Build System**: Native GitHub Actions using `rumblefrog/setup-sp` to install the SourcePawn compiler
+- **Compiler**: SourcePawn compiler (spcomp) - installed directly in CI via `rumblefrog/setup-sp`
 - **Target**: Source engine game servers (CS:GO, CS2, TF2, etc.)
 
-## Build System (SourceKnight)
+## Build System (GitHub Actions)
 
 ### Build Configuration
-The `sourceknight.yaml` file defines:
-- Project name and dependencies
-- SourceMod version and download location
-- Output directory (`/addons/sourcemod/plugins`)
-- Build targets (plugin names)
+The `.github/workflows/ci.yml` file defines:
+- SourceMod/spcomp version (1.12.x) via `rumblefrog/setup-sp`
+- Compilation of `addons/sourcemod/scripting/FixHostTimeScale.sp` into `addons/sourcemod/plugins/FixHostTimeScale.smx`
+- Packaging and release steps
 
 ### Building the Plugin
 ```bash
-# Install SourceKnight (requires Python 3.6+)
-pip install sourceknight
-
-# Build the plugin
-sourceknight build
-
-# Output will be in .sourceknight/package/addons/sourcemod/plugins/FixHostTimeScale.smx
+# Locally, install a SourcePawn compiler (spcomp) matching SourceMod 1.12.x
+# Then compile directly:
+spcomp -i addons/sourcemod/scripting/include -o addons/sourcemod/plugins/FixHostTimeScale.smx addons/sourcemod/scripting/FixHostTimeScale.sp
 ```
 
 ### CI/CD Pipeline
 The GitHub Actions workflow:
-1. Builds the plugin using SourceKnight
+1. Installs spcomp via `rumblefrog/setup-sp` and compiles the plugin directly
 2. Creates packages for distribution
 3. Automatically creates releases with compiled `.smx` files
 4. Supports both tag-based and latest releases
@@ -133,7 +127,7 @@ public void OnPluginEnd() {
 ## Testing and Validation
 
 ### Local Testing
-1. Build the plugin with SourceKnight
+1. Build the plugin with spcomp
 2. Copy `.smx` file to SourceMod plugins directory
 3. Test on a development server
 4. Verify ConVar behavior with various values
@@ -147,7 +141,7 @@ public void OnPluginEnd() {
 ## Debugging
 
 ### Common Issues
-- **Build failures**: Check SourceKnight configuration and SourceMod version
+- **Build failures**: Check the GitHub Actions workflow configuration and SourceMod version
 - **Plugin not loading**: Verify SourceMod installation and plugin compatibility
 - **ConVar not found**: Ensure the game supports the ConVar
 - **Hook not working**: Check if ConVar exists and is accessible
@@ -229,8 +223,8 @@ addons/sourcemod/
 
 ### Compilation Output
 - Source files: `.sp` → Compiled plugins: `.smx`
-- SourceKnight automatically handles compilation
-- Output directory: `.sourceknight/package/addons/sourcemod/plugins/`
+- GitHub Actions CI handles compilation via `spcomp` installed by `rumblefrog/setup-sp`
+- Output directory: `addons/sourcemod/plugins/`
 
 ## Security Considerations
 
@@ -270,7 +264,7 @@ CreateTimer(1.0, Timer_Example, _, TIMER_REPEAT);
 
 ### GitHub Codespaces/VS Code
 - Install SourcePawn syntax highlighting extensions
-- Use the integrated terminal for SourceKnight commands
+- Use the integrated terminal to run `spcomp` directly
 - Leverage GitHub Actions for automated testing
 
 ### Continuous Integration
@@ -280,18 +274,17 @@ CreateTimer(1.0, Timer_Example, _, TIMER_REPEAT);
 - Artifacts are preserved for download
 
 ### Local Development Setup
-1. Install Python 3.6+ for SourceKnight
+1. Install a SourcePawn compiler (spcomp) matching SourceMod 1.12.x
 2. Clone repository
-3. Run `pip install sourceknight`
-4. Use `sourceknight build` for compilation
-5. Test compiled plugins on development server
+3. Run `spcomp` against `addons/sourcemod/scripting/FixHostTimeScale.sp` for compilation
+4. Test compiled plugins on development server
 
 ## Troubleshooting Common Issues
 
 ### Build Problems
-- **"SourceKnight not found"**: Install with `pip install sourceknight`
+- **"spcomp not found"**: Ensure `rumblefrog/setup-sp` step ran successfully in CI, or install spcomp locally
 - **"spcomp failed"**: Check SourceMod version compatibility
-- **"Include not found"**: Verify include paths in dependencies
+- **"Include not found"**: Verify include paths in the workflow
 
 ### Runtime Issues
 - **Plugin not loading**: Check SourceMod version and dependencies
