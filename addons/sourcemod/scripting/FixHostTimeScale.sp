@@ -12,12 +12,14 @@ public Plugin myinfo =
 	name = "Fix host_timescale",
 	author = ".Rushaway",
 	description = "Block host_timescale bug from crashing your server.",
-	version = "1.0",
+	version = "1.0.1",
 	url = ""
 };
 
 public void OnPluginStart()
 {
+	LoadTranslations("FixHostTimeScale.phrases");
+
 	g_ConVar_HostTimeScale = FindConVar("host_timescale");
 	g_ConVar_HostTimeScale.AddChangeHook(OnConVarChanged);
 }
@@ -33,6 +35,6 @@ public void OnConVarChanged(ConVar convar, const char[] oldValue, const char[] n
 	{
 		convar.IntValue = 1;
 		for (int i = 0; i < 4; i++)
-			PrintToChatAll("Setting host_timescale to values less than 1 will crash the server!!!");
+			PrintToChatAll("%t", "Timescale Warning");
 	}
 }

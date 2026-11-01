@@ -1,0 +1,13 @@
+"Phrases"
+{
+	"Timescale Warning"
+	{
+		"en"		"Setting host_timescale to values less than 1 will crash the server!!!"
+		"fr"		"Régler host_timescale sur une valeur inférieure à 1 fera crasher le serveur !!!"
+		"ru"		"Установка host_timescale меньше 1 приведёт к падению сервера!!!"
+		"es"		"¡¡¡Establecer host_timescale en un valor menor que 1 hará caer el servidor!!!"
+		"de"		"host_timescale auf Werte unter 1 zu setzen, lässt den Server abstürzen!!!"
+		"pt"		"Definir host_timescale com valores menores que 1 vai derrubar o servidor!!!"
+		"chi"		"将 host_timescale 设置为小于 1 的值会导致服务器崩溃！！！"
+	}
+}
