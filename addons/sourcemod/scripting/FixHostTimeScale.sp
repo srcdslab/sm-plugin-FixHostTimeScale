@@ -12,7 +12,7 @@ public Plugin myinfo =
 	name = "Fix host_timescale",
 	author = ".Rushaway",
 	description = "Block host_timescale bug from crashing your server.",
-	version = "1.0.2",
+	version = "1.0.3",
 	url = ""
 };
 

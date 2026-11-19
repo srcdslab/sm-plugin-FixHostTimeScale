@@ -9,5 +9,11 @@
 		"de"		"host_timescale auf Werte unter 1 zu setzen, lässt den Server abstürzen!!!"
 		"pt"		"Definir host_timescale com valores menores que 1 vai derrubar o servidor!!!"
 		"chi"		"将 host_timescale 设置为小于 1 的值会导致服务器崩溃！！！"
+		"pl"		"Ustawienie host_timescale na wartość mniejszą niż 1 zawiesi serwer!!!"
+		"tr"		"host_timescale değerini 1'den küçük ayarlamak sunucuyu çökertir!!!"
+		"it"		"Impostare host_timescale su valori inferiori a 1 farà crashare il server!!!"
+		"ua"		"Встановлення host_timescale менше 1 призведе до збою сервера!!!"
+		"zho"		"將 host_timescale 設置為小於 1 的值會導致伺服器崩潰！！！"
+		"cze"		"Nastavení host_timescale na hodnotu menší než 1 způsobí pád serveru!!!"
 	}
 }
